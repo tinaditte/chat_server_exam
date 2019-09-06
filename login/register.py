@@ -8,19 +8,19 @@ def generator_strong(size):
     return ''.join(random.choice(number + lowercase + uppercase + symbol) for x in range(size))
 
 def create_user(username):
-    if os.path.isfile('../users/' + username):
+    if os.path.isfile('./users/' + username):
         print("Username is taken")
 
 def create_password(username, password):
     password = hashlib.sha256(password.encode())
-    saltylength = os.path.getsize("../secret/salty")
+    saltylength = os.path.getsize("./secret/salty")
 
-    with open("../secret/salty", 'r', encoding="utf-8") as file_handle:
+    with open("./secret/salty", 'r', encoding="utf-8") as file_handle:
         saltystring = file_handle.read(saltylength)
 
     password.update(saltystring.encode())
 
-    with open("../users/" + username, 'wb') as file_handle:
+    with open("./users/" + username, 'wb') as file_handle:
         file_handle.write(password.digest())
 
 

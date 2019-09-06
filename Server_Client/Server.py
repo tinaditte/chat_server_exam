@@ -16,13 +16,14 @@ def loggingin(conn):
     username = conn.recv(1024).decode()
     conn.send(b'Password: ')
     password = hashlib.sha256(conn.recv(1024))
-    saltylength = os.path.getsize("../secret/salty")
+    saltylength = os.path.getsize("./secret/salty")
 
-    with open("../secret/salty", 'r', encoding="utf-8") as file_handle:
+    with open("./secret/salty", 'r', encoding="utf-8") as file_handle:
         saltystring = file_handle.read(saltylength)
-    password.update(saltystring.encode())
 
+    password.update(saltystring.encode())
     login.checking(username, password)
+
     if login.checking(username, password) == True:
         conn.send(b'You have successfully logged in')
     elif login.checking(username, password) == False:
@@ -72,7 +73,7 @@ def client_thread(conn):
             conn.send(b"Invalid choice")
 
     username = client_names[conn]
-    conn.send(b'You can now start to chat\n')
+    conn.send(b'You can now start to chat.\n Type \'q\' to quit.\n')
 
     while True:
         data = conn.recv(1024).decode()
@@ -80,7 +81,7 @@ def client_thread(conn):
             break
 
         print("from connected user: " + str(data))
-        data = str(data).upper()
+        data = str(data)
         print("Sending: " + str(data))
 
         for c in connected_clients:
