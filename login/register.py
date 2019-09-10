@@ -7,6 +7,9 @@ def generator_strong(size):
     symbol = string.punctuation
     return ''.join(random.choice(number + lowercase + uppercase + symbol) for x in range(size))
 
+def create_user(username):
+    if os.path.isfile('./users/' + username):
+        print("Username is taken")
 
 def create_password(username, password):
     password = hashlib.sha256(password.encode())
@@ -19,5 +22,4 @@ def create_password(username, password):
 
     with open("./users/" + username, 'wb') as file_handle:
         file_handle.write(password.digest())
-
 

@@ -1,60 +1,31 @@
 import os
+import hashlib
 from tkinter import *
 from tkinter import messagebox
 from login import register, login
+from GUI import chat_register
 
-def submit_user(username, password):
-    sub_user = str(username)
-    sub_pass = str(password)
+def loggingin(username, password):
+    checks = login.checking(username, password)
 
-    #Checks if username is taken
-    if os.path.isfile('./users/' + sub_user):
-        messagebox.showinfo("Username is taken!")
+    if checks == True:
+        messagebox.showinfo("Success")
+    elif checks == False:
+        messagebox.showinfo("Fail")
     else:
-        register.create_password(sub_user, sub_pass)
-        messagebox.showinfo("You have successfully registered!")
-        #til chat room
-
-# New screen for Registration:
-def registering():
-    register_screen = Toplevel()
-    register_screen.title("Register")
-    register_screen.geometry("300x500")
-
-    global username
-    global password
-    global user_entry
-    global pass_entry
-
-    username = StringVar
-    password = StringVar
-
-    user_reg = Label(register_screen, text="Username")
-    user_reg.pack()
-    user_entry = Entry(register_screen, textvariable = username)
-    user_entry.pack()
-
-    pass_reg = Label(register_screen, text="Password")
-    pass_reg.pack()
-    pass_entry = Entry(register_screen, textvariable = password)
-    pass_entry.pack()
-
-    user = user_entry.get()
-    passw = pass_entry.get()
-
-    button_agree = Button(register_screen, text="Submit", command=submit_user(user, passw))
-    button_agree.pack()
-
-def login():
-    pass
-
+        print("error in cw")
 
 def main_screen():
-    global root
+    global username_log
+    global password_log
+
     root = Tk()
 
     root.title("Chatting")
     root.geometry('300x500')
+
+    username_log = StringVar()
+    password_log = StringVar()
 
     #Title and subtitle
     label_wel = Label(root, text="Welcome", font=("Arial", 40))
@@ -65,10 +36,11 @@ def main_screen():
     #Login elements
     label_name = Label(root, text="Username")
     label_password = Label(root, text="Password")
-    button_log = Button(root, text="Login")
-    button_reg = Button(root, text="Register", command= registering)
-    entry_name = Entry(root)
-    entry_password = Entry(root)
+    entry_name = Entry(root, textvariable=username_log)
+    entry_password = Entry(root, textvariable=password_log)
+
+    button_log = Button(root, text="Login", command=lambda: loggingin(entry_name.get(), entry_password.get()))
+    button_reg = Button(root, text="Register", command=chat_register.registering)
 
     #placing
     label_name.grid(row=2, sticky=W)

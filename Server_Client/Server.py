@@ -39,16 +39,16 @@ def registering(conn):
     conn.send(b'Username: ')
     username = conn.recv(1024).decode()
     register.create_user(username)
-    conn.send(b'Would you like to have your password generated? y/n')
+    #conn.send(b'Would you like to have your password generated? y/n')
     choice = conn.recv(1024).decode()
-    if choice == 'y':
-        conn.send(b'How long do you want your password to be?')
-        size = conn.recv(1024).decode()
-        register.generator_strong(int(size))
-    else:
-        conn.send(b'Password: ')
-        password = conn.recv(1024).decode()
-        register.create_password(username, password)
+    #if choice == 'y':
+        #conn.send(b'How long do you want your password to be?')
+        #size = conn.recv(1024).decode()
+        #register.generator_strong(int(size))
+    #else:
+    conn.send(b'Password: ')
+    password = conn.recv(1024).decode()
+    register.create_password(username, password)
 
     if os.path.isfile('../users/' + username):
         message = "The registration with: " + username + " was successful"
