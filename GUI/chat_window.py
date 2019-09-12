@@ -7,7 +7,6 @@ from GUI import chat_register
 
 def loggingin(username, password):
     checks = login.checking(username, password)
-
     if checks == True:
         messagebox.showinfo("Success")
     elif checks == False:
