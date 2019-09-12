@@ -1,5 +1,5 @@
 import socket, threading, os, hashlib
-from login import register, login
+from login import register, login_py
 
 host = "127.0.0.1"
 port = 9980
@@ -22,11 +22,11 @@ def loggingin(conn):
         saltystring = file_handle.read(saltylength)
 
     password.update(saltystring.encode())
-    login.checking(username, password)
+    login_py.checking(username, password)
 
-    if login.checking(username, password) == True:
+    if login_py.checking(username, password) == True:
         conn.send(b'You have successfully logged in')
-    elif login.checking(username, password) == False:
+    elif login_py.checking(username, password) == False:
         conn.send(b'Wrong username and/or password')
         socket.close()
     else:

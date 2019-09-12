@@ -1,15 +1,13 @@
-import os
-import hashlib
 from tkinter import *
 from tkinter import messagebox
-from login import register, login
 from GUI import chat_register
+from login import login_py
 
 def loggingin(username, password):
-    checks = login.checking(username, password)
-    if checks == True:
+    checks = login_py.checking(username, password)
+    if checks:
         messagebox.showinfo("Success")
-    elif checks == False:
+    elif not checks:
         messagebox.showinfo("Fail")
     else:
         print("error in cw")
@@ -38,6 +36,9 @@ def main_screen():
     entry_name = Entry(root, textvariable=username_log)
     entry_password = Entry(root, textvariable=password_log)
 
+    user = entry_name.get()
+    passw = entry_password.get()
+
     button_log = Button(root, text="Login", command=lambda: loggingin(entry_name.get(), entry_password.get()))
     button_reg = Button(root, text="Register", command=chat_register.registering)
 
@@ -50,6 +51,5 @@ def main_screen():
     button_reg.grid(row=5, sticky=W)
 
     root.mainloop()
-
 
 main_screen()

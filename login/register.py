@@ -11,19 +11,19 @@ def create_user(username):
     if os.path.isfile('./users/' + username):
         print("Username is taken")
 
-def create_password(username, password):
-    # password hashed to 64 chars
-    # fixed sixe 256bit (32 bytes)
-    password = hashlib.sha256(password.encode())
-    print(password.digest())
-
+def get_salty():
     #get size in bytes of path(salty)
     saltylength = os.path.getsize("./secret/salty")
-
     with open("./secret/salty", 'r', encoding="utf-8") as file_handle:
         #Læser længden af saltylength og ligger det i en string
         saltystring = file_handle.read(saltylength)
+        return saltystring
 
+def create_password(username, password):
+    # password hashed to 64 chars
+    # fixed size 256bit (32 bytes)
+    password = hashlib.sha256(password.encode())
+    saltystring = get_salty()
     #feeder password bytes med saltystring i bytes.
     password.update(saltystring.encode())
 
