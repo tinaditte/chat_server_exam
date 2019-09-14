@@ -57,7 +57,7 @@ def registering(conn):
     client_names[conn] = username
 
 def client_thread(conn):
-    print("Client connected")
+    print("Client connected: " + conn)
 
     while True:
         conn.send(b'Login or Register? ')

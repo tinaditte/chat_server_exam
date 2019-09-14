@@ -36,9 +36,6 @@ def main_screen():
     entry_name = Entry(root, textvariable=username_log)
     entry_password = Entry(root, textvariable=password_log)
 
-    user = entry_name.get()
-    passw = entry_password.get()
-
     button_log = Button(root, text="Login", command=lambda: loggingin(entry_name.get(), entry_password.get()))
     button_reg = Button(root, text="Register", command=chat_register.registering)
 
