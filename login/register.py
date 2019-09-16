@@ -1,16 +1,5 @@
 import os, hashlib, random, string
 
-def generator_strong(size):
-    number = string.digits
-    lowercase = string.ascii_lowercase
-    uppercase = string.ascii_uppercase
-    symbol = string.punctuation
-    return ''.join(random.choice(number + lowercase + uppercase + symbol) for x in range(size))
-
-def create_user(username):
-    if os.path.isfile('./users/' + username):
-        print("Username is taken")
-
 def get_salty():
     #get size in bytes of path(salty)
     saltylength = os.path.getsize("./secret/salty")

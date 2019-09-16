@@ -1,5 +1,10 @@
 from tkinter import *
-from Server_Client import Client_chat
+
+class chat_room:
+    def __init__(self, master):
+        self.master = master
+
+
 
 def chat_window():
     global window
