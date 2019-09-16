@@ -10,7 +10,7 @@ client_socket.connect((host, port))
 def receive_message():
     while True:
         try:
-            message = client_socket.recv(1024).decode()
+            message = client_socket.recv(1024).decode("utf8")
             message_list.insert(END, message)
         except OSError: #if client leaves
             break
@@ -55,7 +55,7 @@ entry.pack()
 send_button.pack()
 
 window.protocol("WM_DELTETE_WINDOW", closing_window)
-window.mainloop()
 
 receive_thread = Thread(target=receive_message)
 receive_thread.start()
+window.mainloop()

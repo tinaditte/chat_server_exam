@@ -10,8 +10,16 @@ server_socket.listen(10)
 clients = {}
 addresses = []
 
+def accept_connections():
+    while True:
+        client, client_address = server_socket.accept()
+        print(client_address + " has connected")
+        client.send(b'Greetings, what may I call you?')
+        addresses[client] = client_address
+        Thread(target=client_handler, args=(client,_)).start()
+
 def client_handler(client): #client = client socket
-    name = client.recv(1024).decode()
+    name = client.recv(1024).decode("utf8")
     welcome = "Welcome %s. If you wish to quit, type QQQ" %name
     client.send(welcome.encode())
     server_announce = "%s has joined." %name
@@ -31,14 +39,11 @@ def client_handler(client): #client = client socket
 
 def broadcast(message, nameID=""):
     for client in clients:
-        to_all = nameID+ message
-        client.send(bytes(to_all))
+        client.send(bytes(nameID, "utf8")+message)
 
-while True:
-    client, (host, _) = server_socket.accept() #Every client gets their own thread
-    addresses.append(client)
-    print(client, " ", (host, _), " has connected.")
-    client.send(b'Greetings. What may I call you?')
-    print("Waiting for connections...")
-    thread_accepted = Thread(args=[client], target=client_handler)
-    thread_accepted.start()
+server_socket.listen(5)
+print("Waiting for connections...")
+accept_thread = Thread(target=accept_connections)
+accept_thread.start()
+accept_thread.join()    #join acceot_thread --> script waits for completion before going to close
+server_socket.close()

@@ -3,37 +3,26 @@ from tkinter import *
 class chat_room:
     def __init__(self, master):
         self.master = master
+        self.loggedin_frame = Frame(master)
+        self.message_frame = Frame(master)
+        self.text_frame = Frame(master)
 
+        self.message = StringVar()
+        self.message.set("Type here.")
 
+        self.scroller = Scrollbar(self.message_frame)
+        self.message_list = Listbox(self.message_frame, height=15, width=50, yscrollcommand=self.scroller.set)
+        self.my_message = Entry(master, textvariable=self.message)
+        self.my_message.bind("<Return>", client_chat.send_message)
+        self.send_button = Button(master, text="Send", command=client.send_message)
 
-def chat_window():
-    global window
-    global message_list
-    window = Toplevel()
+        #placing
+        self.loggedin_frame.pack(side=LEFT)
+        self.scroller.pack(side=RIGHT, fill=Y)
+        self.message_list.pack(side=RIGHT, fill=BOTH)
+        self.message_list.pack()
+        self.message_frame.pack()
+        self.my_message.pack()
+        self.send_button.pack()
 
-    loggedin_frame = Frame(window)
-    message_frame = Frame(window)
-    text_frame = Frame(window)
-
-    message = StringVar()
-    message.set("Type here")
-
-    scroller = Scrollbar(message_frame)
-    message_list = Listbox(message_frame, height=15, width=50, yscrollcommand=scroller.set)
-    my_message = Entry(window, textvariable=message)
-    my_message.bind("<Return>", Client_chat.send_msg)
-    send_button = Button(window, text="Send", command=Client_chat.send_msg())
-
-    #placing
-    loggedin_frame.pack(side=LEFT)
-    scroller.pack(side=RIGHT, fill=Y)
-    message_list.pack(side=RIGHT, fill=BOTH)
-    message_list.pack()
-    message_frame.pack()
-    my_message.pack()
-    send_button.pack()
-
-    window.protocol("WM_DELTETE_WINDOW", Client_chat.closing)
-
-
-#Koble chatroom og client chat sammen.
+        master.protocol("WM_DELTETE_WINDOW", Client_chat.closing)
