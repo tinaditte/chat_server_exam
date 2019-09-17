@@ -34,11 +34,11 @@ class registering:
         self.password = str(password)
 
         # checks if username is taken
-        if os.path.isfile('./users/' + self.username):
+        if register.check_if_user_exists(self.username) == True:
             messagebox.showinfo("Username is taken!")
         else:
             register.create_password(self.username, self.password)
-            if os.path.isfile('./users/' + self.username):
+            if register.check_if_registered(self.username) == True:
                 messagebox.showinfo("You have successfully registered!")
             else:
                 print("fail")
@@ -76,3 +76,7 @@ class password_generation:
         str_password = str(password)
         self.gen_entry.insert(0, str_password)
         password_list.append(str_password)
+
+master = Toplevel()
+registering(master)
+master.mainloop()

@@ -48,6 +48,10 @@ class landing:
         reg_screen = Toplevel(self.master)
         reg_gui = registering(reg_screen)
 
+    def closing(self):
+        self.master.destroy()
+        sys.exit(0)
+
 
 root = Tk()
 try_landing = landing(root)

@@ -11,7 +11,6 @@ def checking(username, password):
     if os.path.isfile('./users/' + username):
         #if user exists -> read content as bytes
         with open('./users/' + username, 'rb') as file_handle:
-            print(username)
             hashedpass = file_handle.read(32)
             #if hashedpass is read the same as digested password
         if password.digest() == hashedpass:
