@@ -1,12 +1,16 @@
+from socket import AF_INET, socket, SOCK_STREAM
+from threading import Thread
 from tkinter import *
 from tkinter import messagebox
+
+from GUI import chat_room
 from login import register
-import os
 import string, random
 
-class registering:
-    def __init__(self, master):
+class Registering:
+    def __init__(self, master, socket):
         self.master = master
+        self.socket = socket
         master.title("Register")
         master.geometry('300x500')
 
@@ -29,19 +33,25 @@ class registering:
         self.button_gen = Button(master, text="Generate password", command=self.to_pg)
         self.button_gen.pack()
 
-    def submit_user(self, username, password):
-        self.username = str(username)
-        self.password = str(password)
+    def submit_user(self, username, password, socket, host, port):
+        #New connection for passw validation
+        #Otherwise: bug, connection dies and trouble re-establish conn
+        client_socket = socket(AF_INET, SOCK_STREAM)
+        client_socket.connect((host, port))
+        print(client_socket)
+        validation_data = 'try_register' + ' ' + username + ' ' + password
+        client_socket.send(bytes(validation_data, 'utf8'))
 
-        # checks if username is taken
-        if register.check_if_user_exists(self.username) == True:
+        #receive server repsonse
+        server_message = client_socket.recv(1024).decode('utf8')
+
+        if server_message == 'Register was successfull':
+            print("Registered and validated. Off to chat room...")
+            self.master.destroy()
+            Thread(target=chat_room, args=(server_message, client_socket, username)).start()
+        elif server_message == 'User exists':
             messagebox.showinfo("Username is taken!")
-        else:
-            register.create_password(self.username, self.password)
-            if register.check_if_registered(self.username) == True:
-                messagebox.showinfo("You have successfully registered!")
-            else:
-                print("fail")
+            client_socket.close()
 
     def to_pg(self):
         pg_screen = Toplevel(self.master)
@@ -76,7 +86,3 @@ class password_generation:
         str_password = str(password)
         self.gen_entry.insert(0, str_password)
         password_list.append(str_password)
-
-master = Toplevel()
-registering(master)
-master.mainloop()

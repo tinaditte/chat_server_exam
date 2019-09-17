@@ -31,12 +31,12 @@ def validate_user(client, client_address):
     if login_type == 'try_login':
         if login_py.checking(user, password) == True:
             print(user + " is validated. Passing to client handle")
-            client.send(bytes("Validated user", "uyf8"))    #confirm validation for user
+            client.send(bytes("valid", "uyf8"))    #confirm validation for user
             addresses[client] = client_address
             Thread(target=client_handler, args=(client, user)).start()  #Pass thread to client_handler
         else:
             print(user + " wrong password.")
-            client.send(bytes("Incorrect login", "utf8"))
+            client.send(bytes("invalid", "utf8"))
 
     elif login_type == 'try_register':
         if register.check_if_user_exists(user) == True:
