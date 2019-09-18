@@ -53,7 +53,7 @@ def client_handler(client, user): # client socket and user as args
     #when user reaches chatroom.
     #for broadcasting messages between users
 
-    welcome = "Welcome %s. If you wish to exit, please type QQQ." % user
+    welcome = "Welcome %s. If you wish to exit, please type QQQ \n." % user
     client.send(bytes(welcome, "utf8"))
     clients[client] = user #user is added to client list
     user_join = '\n%s has joined the chat.' %user

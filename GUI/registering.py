@@ -1,75 +1,86 @@
+import random
+import string
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 from tkinter import *
 from tkinter import messagebox
 
 from GUI import chat_room
-from login import register
-import string, random
+
 
 class Registering:
-    def __init__(self, master, socket):
-        self.master = master
-        self.socket = socket
-        master.title("Register")
-        master.geometry('300x500')
+    def __init__(self):
+        #only reference chat_room class.
+        #login screen still avaiable, but not needed
+        self.launch_chatroom = chat_room
+        self.host = 'localhost'
+        self.port = 9943
+        self.add = (self.host, self.port)
 
-        self.username = StringVar()
-        self.password = StringVar()
-        self.check_passw = IntVar()
+    def submit_user(self, username, password, add):
+         # New connection for passw validation
+         # Otherwise: bug, connection dies and trouble re-establish conn
+         client_socket = socket(AF_INET, SOCK_STREAM)
+         client_socket.connect((add))
+         print(client_socket)
+         validation_data = 'try_register' + ' ' + username + ' ' + password
+         client_socket.send(bytes(validation_data, 'utf8'))
 
-        self.label_regname = Label(master, text="Username")
-        self.label_regname.pack()
-        self.entry_regname = Entry(master, textvariable=self.username)
-        self.entry_regname.pack()
+         # receive server repsonse
+         server_message = client_socket.recv(1024).decode('utf8')
 
-        self.label_regpass = Label(master, text="Password")
-        self.label_regpass.pack()
-        self.entry_regpass = Entry(master, textvariable=self.password)
-        self.entry_regpass.pack()
-        self.button_submit = Button(master, text="Submit", command=lambda: self.submit_user(self.entry_regname.get(),
-                                                                                            self.entry_regpass.get()))
-        self.button_submit.pack()
-        self.button_gen = Button(master, text="Generate password", command=self.to_pg)
-        self.button_gen.pack()
+         if server_message == 'Register was successfull':
+             print("Registered and validated. Off to chat room...")
+             register_screen.destroy()
+             print("User has registered, passing active client to chatroom class")
+             Thread(target=self.launch_chatroom, args=(server_message, client_socket, username)).start()
+         elif server_message == 'User exists':
+             messagebox.showinfo("Username is taken!")
+             client_socket.close() #kills current conn
 
-    def submit_user(self, username, password, socket, host, port):
-        #New connection for passw validation
-        #Otherwise: bug, connection dies and trouble re-establish conn
-        client_socket = socket(AF_INET, SOCK_STREAM)
-        client_socket.connect((host, port))
-        print(client_socket)
-        validation_data = 'try_register' + ' ' + username + ' ' + password
-        client_socket.send(bytes(validation_data, 'utf8'))
+         else:
+             print('Unexpected return message from server' + server_message)
+             client_socket.close()
 
-        #receive server repsonse
-        server_message = client_socket.recv(1024).decode('utf8')
+    def register_gui(self):
+        global register_screen
+        register_screen = Toplevel()
+        register_screen.title("Register")
+        register_screen.geometry('300x500')
 
-        if server_message == 'Register was successfull':
-            print("Registered and validated. Off to chat room...")
-            self.master.destroy()
-            Thread(target=chat_room, args=(server_message, client_socket, username)).start()
-        elif server_message == 'User exists':
-            messagebox.showinfo("Username is taken!")
-            client_socket.close()
+        global username_reg
+        global password_reg
 
-    def to_pg(self):
-        pg_screen = Toplevel(self.master)
-        pg_gui = password_generation(pg_screen)
-        self.entry_regpass.insert(0, password_generation.password_list)
+        username_reg = StringVar
+        password_reg = StringVar
 
+        label_regname = Label(register_screen, text="Username")
+        label_regname.pack()
+        entry_regname = Entry(register_screen, textvariable=username_reg)
+        entry_regname.pack()
+
+        label_regpass = Label(register_screen, text="Password")
+        label_regpass.pack()
+        entry_regpass = Entry(register_screen, textvariable=password_reg)
+        entry_regpass.pack()
+        button_submit = Button(register_screen, text="Submit", command=lambda: self.submit_user(entry_regname.get(),
+                                                                                            entry_regpass.get()))
+        button_submit.pack()
+        button_gen = Button(register_screen, text="Generate password", command=password_generation)
+        button_gen.pack()
 
 class password_generation:
     password_list = []
 
-    def __init__(self, master):
-        self.master = master
-        master.title("Generating password")
-        master.geometry('100x100')
+    def __init__(self):
+        global pg_screen
+        pg_screen = Toplevel()
+        pg_screen.title("Generating password")
+        pg_screen.geometry('100x100')
 
-        self.gen_label = Label(master, text="Gemerate a password")
-        self.gen_entry = Entry(master, widt=200)
-        self.gen_button = Button(master, text="Generate", command=self.generator)
+        self.gen_label = Label(pg_screen, text="Gemerate a password")
+        self.gen_entry = Entry(pg_screen, widt=200)
+        self.gen_button = Button(pg_screen, text="Generate", command=self.generator)
         self.gen_label.pack()
         self.gen_entry.pack()
         self.gen_button.pack()
