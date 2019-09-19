@@ -27,6 +27,12 @@ def create_password(username, password):
         file_handle.write(password.digest())
         #digest: 16 bytes string, incl non ascii chars.
 
+def check_if_match(password, password2):
+    if password == password2:
+        return True
+    else:
+        return False
+
 def check_if_registered(username):
     if os.path.isfile('./users/' + username):
         return True

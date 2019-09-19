@@ -25,13 +25,13 @@ def accept_connections():
 def validate_user(client, client_address):
     #Handle login or registry attempt.
     client_validation = client.recv(1024).decode("utf8")
-    login_type, user, password = client_validation.split()
+    login_type, user, password, password2 = client_validation.split()
     print("Attempted " + login_type + " with username: " + user + " and password: " + password)
 
     if login_type == 'try_login':
         if login_py.checking(user, password) == True:
             print(user + " is validated. Passing to client handle")
-            client.send(bytes("valid", "uyf8"))    #confirm validation for user
+            client.send(bytes("valid", "utf8"))    #confirm validation for user
             addresses[client] = client_address
             Thread(target=client_handler, args=(client, user)).start()  #Pass thread to client_handler
         else:
@@ -41,6 +41,9 @@ def validate_user(client, client_address):
     elif login_type == 'try_register':
         if register.check_if_user_exists(user) == True:
             client.send(bytes('User exists', 'utf8'))
+        elif register.check_if_match(password, password2) == False:
+            print("Error, password mismatch")
+            client.send(bytes("mismatch", "utf8"))
         else:
             register.create_password(user, password)
             client.send(bytes("Register was successfull", "utf8"))
