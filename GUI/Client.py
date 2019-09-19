@@ -1,15 +1,13 @@
 from tkinter import *
-from GUI.landing import Landing
+from GUI.Landing import Landing
 
-host = 'localhost'
+host = '127.0.0.1'
 port = 9943
-add = (host, port)
 
 def main():
     root = Tk()
     app = Landing(root)
     root.mainloop()
 
-
 if __name__ == '__main__':
-    main()  # Starts 'main' function which launches our app
+    main()

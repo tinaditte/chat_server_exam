@@ -7,21 +7,25 @@ from tkinter import messagebox
 
 from GUI import chat_room
 
+#----------Connection info--------------#
+from GUI.Chat import Chat_Room
+
+host = '127.0.0.1'
+port = 9943
+#---------------------------------------#
 
 class Registering:
     def __init__(self):
-        #only reference chat_room class.
-        #login screen still avaiable, but not needed
-        self.launch_chatroom = chat_room
-        self.host = 'localhost'
-        self.port = 9943
-        self.add = (self.host, self.port)
+        """
+        Only references to chat_room class.
+        """
+        self.launch_chat_room = Chat_Room
 
-    def submit_user(self, username, password, add):
+    def submit_user(self, username, password):
          # New connection for passw validation
          # Otherwise: bug, connection dies and trouble re-establish conn
          client_socket = socket(AF_INET, SOCK_STREAM)
-         client_socket.connect((add))
+         client_socket.connect((host, port))
          print(client_socket)
          validation_data = 'try_register' + ' ' + username + ' ' + password
          client_socket.send(bytes(validation_data, 'utf8'))
@@ -33,7 +37,7 @@ class Registering:
              print("Registered and validated. Off to chat room...")
              register_screen.destroy()
              print("User has registered, passing active client to chatroom class")
-             Thread(target=self.launch_chatroom, args=(server_message, client_socket, username)).start()
+             Thread(target=self.launch_chat_room, args=(server_message, client_socket, username)).start()
          elif server_message == 'User exists':
              messagebox.showinfo("Username is taken!")
              client_socket.close() #kills current conn
@@ -41,6 +45,7 @@ class Registering:
          else:
              print('Unexpected return message from server' + server_message)
              client_socket.close()
+
 
     def register_gui(self):
         global register_screen
@@ -55,18 +60,20 @@ class Registering:
         password_reg = StringVar
 
         label_regname = Label(register_screen, text="Username")
-        label_regname.pack()
         entry_regname = Entry(register_screen, textvariable=username_reg)
-        entry_regname.pack()
-
         label_regpass = Label(register_screen, text="Password")
-        label_regpass.pack()
         entry_regpass = Entry(register_screen, textvariable=password_reg)
-        entry_regpass.pack()
+
         button_submit = Button(register_screen, text="Submit", command=lambda: self.submit_user(entry_regname.get(),
                                                                                             entry_regpass.get()))
-        button_submit.pack()
         button_gen = Button(register_screen, text="Generate password", command=password_generation)
+
+        #placing
+        label_regname.pack()
+        entry_regname.pack()
+        label_regpass.pack()
+        entry_regpass.pack()
+        button_submit.pack()
         button_gen.pack()
 
 class password_generation:

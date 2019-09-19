@@ -4,20 +4,32 @@ from tkinter import *
 from tkinter import messagebox
 
 from GUI import chat_room
-from GUI.chat_room import Chat_Room
-from GUI.registering import Registering
+from GUI.Chat import Chat_Room
+from GUI.Register import Registering
+
+#----------Connection info--------------#
+host = '127.0.0.1'
+port = 9943
+#---------------------------------------#
 
 
 class Landing:
     def __init__(self, master):     #always runs when class is called
-        self.master = master
-        self.launch_registering_screen = Registering #() bc toplevel is form of function - doenst run when reference
+        """
+        Landing page, accepts master as argument
+        Class initialize regestration_screen and chat_room locally,
+        so function from the classes can be reached by reference.
+        Launching registration_screem by calling locally declared self.launch_registering_screen
+
+        () for calling toplevel function, it doesn't run on reference only
+        chat_room class has toplevel() located in _init_ and will run by instance
+
+        """
+        self.launch_registering_screen = Registering() #() bc toplevel is form of function - doenst run when reference
         self.launch_chat_room = Chat_Room #no () bc toplevel located in init withion chatroom class, runs as an instance
-        self.host = 'localhost'
-        self.port = 9943
-        self.add = (self.host, self.port)
 
         #Gui settings
+        self.master = master
         master.title("Chatting")
         master.geometry('300x500')
 
@@ -33,9 +45,8 @@ class Landing:
         self.entry_name = Entry(master)
         self.entry_password = Entry(master)
 
-        self.button_log = Button(master, text="Login",
-                                 command=lambda: self.loggingin(self.entry_name.get(), self.entry_password.get()))
-        self.button_reg = Button(master, text="Register", command=self.launch_registering_screen.register_gui(self))
+        self.button_log = Button(master, text="Login", command=lambda: self.loggingin(self.entry_name.get(), self.entry_password.get()))
+        self.button_reg = Button(master, text="Register", command=self.launch_registering_screen.register_gui)
 
         # placing
         self.label_name.grid(row=2, sticky=W)
@@ -52,11 +63,17 @@ class Landing:
         sys.exit(0)
 
     def loggingin(self, username, password):
-        #client socket to initiate new conn each time password validation is attempted.
+        """
+        When 'login' button is pressed
+        Sends username and password to server, along with login type
+        Server sends back answer whether the login was valid og invalid
+        Client_socket is placed here to initiate new connection each time a password validation is requested.
+        Otherwise, the original connection dies and program will have issues to re-establish
+        """
         client_socket = socket(AF_INET, SOCK_STREAM)
-        client_socket.connect(add)
-        print("Connection started - prints socket info")
-        print(client_socket)
+        client_socket.connect((host, port))
+        print("Connection has been started")
+        print("Client Socket info: " + str(client_socket))
         validation_data = 'try_login' + ' ' + username + ' ' + password
         client_socket.send(bytes(validation_data, "utf8"))
 
@@ -65,7 +82,8 @@ class Landing:
         if server_message == "valid":
             print("User validation confirmed. Open chat room...")
             self.master.withdraw()
-            Thread(target=chat_room, args=(server_message, client_socket, username)).start()
+            #Starts chat room session
+            Thread(target=self.launch_chat_room, args=(server_message, client_socket, username)).start()
 
         elif server_message == "invalid":
             messagebox.showinfo("Invalid password and/or username.")

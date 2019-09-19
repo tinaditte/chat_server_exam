@@ -1,7 +1,7 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
 
-from GUI import landing
+from GUI import Landing
 from login import login_py, register
 
 host = "localhost"
