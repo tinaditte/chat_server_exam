@@ -124,7 +124,7 @@ class Landing:
         client_socket.connect((host, port))
         print("Connection has been started")
         print("Client Socket info: " + str(client_socket))
-        validation_data = 'try_login' + ' ' + username + ' ' + password
+        validation_data = 'try_login' + ' ' + username + ' ' + password + ' ' + password
         client_socket.send(bytes(validation_data, "utf8"))
 
         server_message = client_socket.recv(1024).decode("utf8")

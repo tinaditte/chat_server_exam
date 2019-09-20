@@ -26,6 +26,7 @@ def validate_user(client, client_address):
     #Handle login or registry attempt.
     client_validation = client.recv(1024).decode("utf8")
     login_type, user, password, password2 = client_validation.split()
+
     print("Attempted " + login_type + " with username: " + user + " and password: " + password)
 
     if login_type == 'try_login':
@@ -78,7 +79,7 @@ def client_handler(client, user): # client socket and user as args
             print(user + " has exited the chat")
             break
 
-def broadcast(user_message, prefix=''):
+def broadcast(user_message, prefix='', ):
     #Method for relaying messages from each user to the rest, via client dict.
     #Every client in client dict receives the message, by iterating through the list
     for client in clients:
