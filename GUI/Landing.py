@@ -122,7 +122,7 @@ class Landing:
         """
         client_socket = socket(AF_INET, SOCK_STREAM)
         client_socket.connect((host, port))
-        print("Connection has been started")
+        print("Connection has been started by login attempt.")
         print("Client Socket info: " + str(client_socket))
         validation_data = 'try_login' + ' ' + username + ' ' + password + ' ' + password
         client_socket.send(bytes(validation_data, "utf8"))
