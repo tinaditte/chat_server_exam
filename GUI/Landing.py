@@ -3,7 +3,6 @@ from threading import Thread
 from tkinter import *
 from tkinter import messagebox
 
-from GUI import chat_room
 from GUI.Chat import Chat_Room
 from GUI.Register import Registering
 
@@ -27,7 +26,6 @@ class Landing:
         """
         self.launch_registering_screen = Registering() #() bc toplevel is form of function - doenst run when reference
         self.launch_chat_room = Chat_Room #no () bc toplevel located in init withion chatroom class, runs as an instance
-
 
         #Gui settings
         self.master = master

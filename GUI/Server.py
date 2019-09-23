@@ -1,8 +1,6 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
-from _thread import *
 
-from GUI import Landing
 from login import login_py, register
 
 host = "localhost"
@@ -22,6 +20,7 @@ def accept_connections():
 
         #Thread for credential check w/ client + client add args
         vali_thread = Thread(target=validate_user, args=(client, client_address))
+        vali_thread.daemon = True
         vali_thread.start()
 
 def validate_user(client, client_address):
@@ -91,9 +90,6 @@ def broadcast(user_message, prefix='', ):
 
 print("Server listening on host: " + host + " on port " +  str(port))
 print("Waiting for connections...")
-while True:
-    for _ in range (10):
-        accept_thread = Thread(target=accept_connections)   #accept each thread bf validation
-        accept_thread.start()
-
-    accept_thread.join()    #join acceot_thread --> script waits for completion before going to close
+accept_thread = Thread(target=accept_connections)   #accept each thread bf validation
+accept_thread.start()
+accept_thread.join()    #join acceot_thread --> script waits for completion before going to close

@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b283ecee-0674-40cc-b93c-997819885891" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/clients/ClientA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clients/clientB.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/ik" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/jh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/y" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Client.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/Landing.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Landing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Register.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Register.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/Server.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/client2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Agnes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Gert" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Haku" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Hannibal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/Martin" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +92,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Client">
+  <component name="RunManager" selected="Python.clientB">
     <configuration name="Client" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="chat_server_exam" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,7 +115,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Register" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ClientA" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="chat_server_exam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -118,7 +128,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/Register.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clients/ClientA.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -193,7 +203,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="client2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="clientB" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="chat_server_exam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -206,7 +216,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GUI/client2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clients/clientB.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -241,17 +251,17 @@
       <item itemvalue="Python.Unnamed" />
       <item itemvalue="Python.Server" />
       <item itemvalue="Python.Client" />
-      <item itemvalue="Python.Register" />
-      <item itemvalue="Python.client2" />
       <item itemvalue="Python.messenger" />
+      <item itemvalue="Python.ClientA" />
+      <item itemvalue="Python.clientB" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Client" />
+        <item itemvalue="Python.clientB" />
+        <item itemvalue="Python.ClientA" />
         <item itemvalue="Python.Server" />
+        <item itemvalue="Python.Client" />
         <item itemvalue="Python.messenger" />
-        <item itemvalue="Python.client2" />
-        <item itemvalue="Python.Register" />
       </list>
     </recent_temporary>
   </component>
@@ -289,6 +299,8 @@
       <workItem from="1568968912240" duration="9947000" />
       <workItem from="1569058299090" duration="871000" />
       <workItem from="1569147076999" duration="7394000" />
+      <workItem from="1569239816792" duration="5467000" />
+      <workItem from="1569247742861" duration="549000" />
     </task>
     <servers />
   </component>
@@ -318,15 +330,17 @@
     <SUITE FILE_PATH="coverage/chat_server_exam$login_py.coverage" NAME="login_py Coverage Results" MODIFIED="1568298206230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$registering.coverage" NAME="registering Coverage Results" MODIFIED="1568726004095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$Chat.coverage" NAME="Chat Coverage Results" MODIFIED="1568904525275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/chat_server_exam$clientB.coverage" NAME="clientB Coverage Results" MODIFIED="1569248213458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$Chat_Client__1_.coverage" NAME="Chat_Client (1) Coverage Results" MODIFIED="1568741135613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/chat_server_exam$ClientA.coverage" NAME="ClientA Coverage Results" MODIFIED="1569248203923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$client.coverage" NAME="client Coverage Results" MODIFIED="1568792242049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$Chat_Client.coverage" NAME="Chat_Client Coverage Results" MODIFIED="1568559699988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$client2.coverage" NAME="client2 Coverage Results" MODIFIED="1569058696170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$Client_Code.coverage" NAME="Client_Code Coverage Results" MODIFIED="1568745316991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$chat_register.coverage" NAME="chat_register Coverage Results" MODIFIED="1568488600964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/chat_server_exam$Server.coverage" NAME="Server Coverage Results" MODIFIED="1569156441213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/chat_server_exam$Server.coverage" NAME="Server Coverage Results" MODIFIED="1569248201812" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$Chat_Server.coverage" NAME="Chat_Server Coverage Results" MODIFIED="1568792240137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/chat_server_exam$Client.coverage" NAME="Client Coverage Results" MODIFIED="1569156467707" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/chat_server_exam$Client.coverage" NAME="Client Coverage Results" MODIFIED="1569239874859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$register.coverage" NAME="register Coverage Results" MODIFIED="1568630637531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$landing.coverage" NAME="landing Coverage Results" MODIFIED="1568634879069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/chat_server_exam$chat_window__1_.coverage" NAME="chat_window (1) Coverage Results" MODIFIED="1568487070601" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

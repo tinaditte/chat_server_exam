@@ -5,10 +5,9 @@ from threading import Thread
 from tkinter import *
 from tkinter import messagebox
 
-from GUI import chat_room
+from GUI.Chat import Chat_Room
 
 #----------Connection info--------------#
-from GUI.Chat import Chat_Room
 
 host = '127.0.0.1'
 port = 9943
@@ -91,6 +90,12 @@ class Registering:
         button_submit.place(relx=0.075, rely=0.548, height=24, width=67)
         label_gen.place(relx=0.038, rely=0.685, height=41, width=126)
         button_gen.place(relx=0.075, rely=0.795, height=24, width=68)
+
+        register_screen.protocol("WM_DELETE_WINDOW", self.closing)
+
+    def closing(self):
+        register_screen.destroy()
+        sys.exit(0)
 
 class password_generation:
     password_list = []
